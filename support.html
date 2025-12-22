@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support - TalkAlly</title>
+    <meta name="description" content="TalkAlly Support - Get help with your AI voice assistant.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="512x512" href="images/logo-icon.png">
+    <link rel="apple-touch-icon" href="images/logo-icon.png">
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://talkally.ai/support.html">
+    <meta property="og:title" content="Support - TalkAlly">
+    <meta property="og:description" content="TalkAlly Support - Get help with your AI voice assistant.">
+    <meta property="og:image" content="https://talkally.ai/images/feature-graphic.png">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1E8296;
+            --primary-dark: #186A7A;
+            --primary-light: #32B4C8;
+            --accent: #4CAF50;
+            --dark: #0D1117;
+            --dark-surface: #161B22;
+            --dark-border: #30363D;
+            --text: #E6EDF3;
+            --text-muted: #8B949E;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+            background: var(--dark);
+            color: var(--text);
+            line-height: 1.7;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1rem 2rem;
+            background: rgba(13, 17, 23, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--dark-border);
+        }
+
+        .nav-container {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #1E8296, #50D0E0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+        }
+
+        .back-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: var(--text);
+        }
+
+        main {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 8rem 2rem 4rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+
+        .intro {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 3rem;
+        }
+
+        /* Contact Card */
+        .contact-card {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .contact-card h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .contact-card p {
+            opacity: 0.9;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-email {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+
+        .contact-email:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-2px);
+        }
+
+        .contact-email svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        /* FAQ Section */
+        h2.section-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        .faq-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .faq-item {
+            background: var(--dark-surface);
+            border: 1px solid var(--dark-border);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            width: 100%;
+            padding: 1.25rem 1.5rem;
+            background: none;
+            border: none;
+            color: var(--text);
+            font-family: inherit;
+            font-size: 1rem;
+            font-weight: 600;
+            text-align: left;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.3s ease;
+        }
+
+        .faq-question:hover {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .faq-question::after {
+            content: '+';
+            font-size: 1.5rem;
+            font-weight: 400;
+            color: var(--primary-light);
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item.open .faq-question::after {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+
+        .faq-item.open .faq-answer {
+            max-height: 500px;
+        }
+
+        .faq-answer-content {
+            padding: 0 1.5rem 1.25rem;
+            color: var(--text-muted);
+        }
+
+        .faq-answer-content a {
+            color: var(--primary-light);
+        }
+
+        /* Getting Started */
+        .getting-started {
+            margin-top: 3rem;
+            background: var(--dark-surface);
+            border: 1px solid var(--dark-border);
+            border-radius: 20px;
+            padding: 2rem;
+        }
+
+        .getting-started h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .steps {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .step {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+
+        .step-number {
+            width: 32px;
+            height: 32px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+
+        .step-content h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .step-content p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        footer {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+            border-top: 1px solid var(--dark-border);
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 600px) {
+            main {
+                padding: 6rem 1rem 3rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .contact-card {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="images/logo-icon.png" alt="TalkAlly" class="logo-icon">
+                <span>TalkAlly</span>
+            </a>
+            <a href="index.html" class="back-link">← Back to Home</a>
+        </div>
+    </nav>
+
+    <main>
+        <h1>Support</h1>
+        <p class="intro">Need help with TalkAlly? We're here for you. Check the FAQ below or reach out directly.</p>
+
+        <div class="contact-card">
+            <h2>Contact Us</h2>
+            <p>Have a question, feedback, or need assistance? Send us an email and we'll get back to you as soon as possible.</p>
+            <a href="/cdn-cgi/l/email-protection#deadabaeaeb1acaa9eaabfb2b5bfb2b2a7f0bfb7" class="contact-email">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20,8L12,13L4,8V6L12,11L20,6M20,4H4C2.89,4 2,4.89 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V6C22,4.89 21.1,4 20,4Z"/></svg>
+                <span class="__cf_email__" data-cfemail="aedddbdedec1dcdaeedacfc2c5cfc2c2d780cfc7">[email&#160;protected]</span>
+            </a>
+        </div>
+
+        <h2 class="section-title">Frequently Asked Questions</h2>
+        <div class="faq-list">
+            <div class="faq-item">
+                <button class="faq-question">What do I need to use TalkAlly?</button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p>You need an Android device and an OpenAI API key. You can get an API key by signing up at <a href="https://platform.openai.com" target="_blank">platform.openai.com</a>. The app also supports Azure OpenAI for enterprise users.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">How much does it cost to use TalkAlly?</button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p>TalkAlly itself is free. However, you pay for AI usage directly to OpenAI or Azure based on their pricing. Voice interactions typically cost a few cents per conversation. The app includes real-time cost tracking so you always know what you're spending.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">Is my data secure?</button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p>Yes. Your API keys and personal data are stored only on your device. Voice data is transmitted directly to your chosen AI provider (OpenAI or Azure) using encrypted connections. We don't operate any servers that store your personal information.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">What's the difference between Personal and Business mode?</button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p><strong>Personal mode:</strong> Uses your own OpenAI or Azure API key directly. Includes local functions like calling, SMS, weather, and navigation.</p>
+                        <p><strong>Business mode:</strong> Connects to an n8n orchestrator for advanced integrations like email, calendar, and custom workflows. Ideal for enterprise users.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">Can I use TalkAlly while driving?</button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p>Yes! TalkAlly is designed for hands-free use. You can set up Hands-Free Contacts for quick voice-activated calling ("Call my wife"), and the app has a Screen Auto-Lock feature to keep the display on while driving. Always prioritize road safety.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">Why isn't the app responding to my voice?</button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p>Check the following:</p>
+                        <ul style="margin-top: 0.5rem; padding-left: 1.5rem;">
+                            <li>Microphone permission is granted</li>
+                            <li>You're connected (green "Ready - Speak freely" status)</li>
+                            <li>Your API key is valid and has credit</li>
+                            <li>You have an internet connection</li>
+                        </ul>
+                        <p style="margin-top: 0.5rem;">Try adjusting Speech Recognition sensitivity in Settings if the app isn't detecting your speech correctly.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="getting-started">
+            <h2>Getting Started</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Get an OpenAI API Key</h3>
+                        <p>Sign up at platform.openai.com and create an API key. Add some credit to your account.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Create a Connection Profile</h3>
+                        <p>Open TalkAlly, go to Settings → Connection Profiles → Add Profile. Choose Personal mode and paste your API key.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Set Up Your Personal Profile</h3>
+                        <p>Add your name and configure Hands-Free Contacts for quick voice calling.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3>Start Talking!</h3>
+                        <p>Tap VOICE to connect and start speaking. Try "What's the weather?" or "Call [contact name]".</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        © 2025 TalkAlly. All rights reserved.
+    </footer>
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+        // FAQ accordion functionality
+        document.querySelectorAll('.faq-question').forEach(button => {
+            button.addEventListener('click', () => {
+                const item = button.parentElement;
+                const isOpen = item.classList.contains('open');
+                
+                // Close all items
+                document.querySelectorAll('.faq-item').forEach(faq => {
+                    faq.classList.remove('open');
+    
