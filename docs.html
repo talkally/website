@@ -1,0 +1,1161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Developer Documentation - TalkAlly</title>
+    <meta name="description" content="TalkAlly API documentation for integrating voice and text interface with any backend orchestrator.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="512x512" href="images/logo-icon.png">
+    <link rel="apple-touch-icon" href="images/logo-icon.png">
+    
+    <!-- Open Graph / Social Sharing -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://talkally.ai/docs.html">
+    <meta property="og:title" content="Developer Documentation - TalkAlly">
+    <meta property="og:description" content="Integrate TalkAlly as a voice/text frontend for your backend system. API documentation and examples.">
+    <meta property="og:image" content="https://talkally.ai/images/feature-graphic.png">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1E8296;
+            --primary-dark: #186A7A;
+            --primary-light: #32B4C8;
+            --accent: #4CAF50;
+            --dark: #0D1117;
+            --dark-surface: #161B22;
+            --dark-border: #30363D;
+            --text: #E6EDF3;
+            --text-muted: #8B949E;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+            background: var(--dark);
+            color: var(--text);
+            line-height: 1.7;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1rem 2rem;
+            background: rgba(13, 17, 23, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--dark-border);
+        }
+
+        .nav-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #1E8296, #50D0E0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--text);
+        }
+
+        .back-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: var(--text);
+        }
+
+        /* Hero */
+        .docs-hero {
+            padding: 8rem 2rem 3rem;
+            text-align: center;
+            border-bottom: 1px solid var(--dark-border);
+        }
+
+        .docs-hero h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+
+        .docs-hero p {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Main content */
+        main {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 3rem 2rem 4rem;
+        }
+
+        /* Quick nav */
+        .quick-nav {
+            background: var(--dark-surface);
+            border: 1px solid var(--dark-border);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .quick-nav h3 {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .quick-nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        .quick-nav-links a {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: rgba(30, 130, 150, 0.1);
+            border: 1px solid rgba(30, 130, 150, 0.2);
+            color: var(--primary-light);
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .quick-nav-links a:hover {
+            background: rgba(30, 130, 150, 0.2);
+            border-color: var(--primary);
+        }
+
+        /* Sections */
+        .docs-section {
+            margin-bottom: 3rem;
+        }
+
+        .docs-section h2 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--dark-border);
+            color: var(--text);
+        }
+
+        .docs-section h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin: 2rem 0 1rem;
+            color: var(--text);
+        }
+
+        .docs-section p {
+            margin-bottom: 1rem;
+            color: var(--text-muted);
+        }
+
+        /* Info boxes */
+        .info-box {
+            background: rgba(30, 130, 150, 0.1);
+            border-left: 4px solid var(--primary);
+            padding: 1rem 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .info-box strong {
+            color: var(--primary-light);
+        }
+
+        .info-box.success {
+            background: rgba(76, 175, 80, 0.1);
+            border-color: var(--accent);
+        }
+
+        .info-box.success strong {
+            color: var(--accent);
+        }
+
+        .info-box.warning {
+            background: rgba(255, 152, 0, 0.1);
+            border-color: #ff9800;
+        }
+
+        .info-box.warning strong {
+            color: #ff9800;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.95rem;
+        }
+
+        th, td {
+            padding: 0.75rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--dark-border);
+        }
+
+        th {
+            background: var(--dark-surface);
+            color: var(--text);
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+
+        td {
+            color: var(--text-muted);
+        }
+
+        tr:hover td {
+            background: rgba(30, 130, 150, 0.05);
+        }
+
+        /* Code */
+        pre {
+            background: #0d0d0d;
+            border: 1px solid var(--dark-border);
+            border-radius: 12px;
+            padding: 1.25rem;
+            overflow-x: auto;
+            margin: 1.5rem 0;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            line-height: 1.6;
+        }
+
+        code {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--primary-light);
+        }
+
+        .inline-code {
+            background: rgba(30, 130, 150, 0.15);
+            color: var(--primary-light);
+            padding: 0.15rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+        }
+
+        /* Badges */
+        .badge {
+            display: inline-block;
+            padding: 0.2rem 0.6rem;
+            border-radius: 6px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .badge-required {
+            background: rgba(239, 68, 68, 0.2);
+            color: #f87171;
+        }
+
+        .badge-optional {
+            background: rgba(76, 175, 80, 0.2);
+            color: #4ade80;
+        }
+
+        .badge-get {
+            background: rgba(59, 130, 246, 0.2);
+            color: #60a5fa;
+        }
+
+        .badge-post {
+            background: rgba(76, 175, 80, 0.2);
+            color: #4ade80;
+        }
+
+        /* Architecture diagram */
+        .architecture-box {
+            background: var(--dark-surface);
+            border: 1px solid var(--dark-border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            line-height: 1.5;
+            overflow-x: auto;
+            white-space: pre;
+        }
+
+        /* Platform grid */
+        .platform-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .platform-item {
+            background: var(--dark-surface);
+            border: 1px solid var(--dark-border);
+            border-radius: 12px;
+            padding: 1.25rem;
+            text-align: center;
+            transition: border-color 0.2s;
+        }
+
+        .platform-item:hover {
+            border-color: var(--primary);
+        }
+
+        .platform-item h4 {
+            color: var(--text);
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .platform-item p {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            margin: 0;
+        }
+
+        /* Ordered list */
+        ol {
+            margin: 1rem 0 1rem 1.5rem;
+            color: var(--text-muted);
+        }
+
+        ol li {
+            margin-bottom: 0.5rem;
+        }
+
+        ol li strong {
+            color: var(--text);
+        }
+
+        /* Links */
+        a {
+            color: var(--primary-light);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Integration Cards */
+        .integration-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .integration-card {
+            background: var(--dark-surface);
+            border: 1px solid var(--dark-border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .integration-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            text-decoration: none;
+        }
+
+        .integration-card .card-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .integration-card .card-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .integration-card .card-icon.google {
+            background: rgba(66, 133, 244, 0.15);
+        }
+
+        .integration-card .card-icon.microsoft {
+            background: rgba(0, 120, 212, 0.15);
+        }
+
+        .integration-card h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .integration-card p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        .integration-card .card-arrow {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            margin-top: 1rem;
+            color: var(--primary-light);
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .integration-card .coming-soon {
+            display: inline-block;
+            padding: 0.2rem 0.5rem;
+            background: rgba(255, 152, 0, 0.15);
+            color: #ff9800;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            margin-left: 0.5rem;
+        }
+
+        /* Footer */
+        footer {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+            border-top: 1px solid var(--dark-border);
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        footer a {
+            color: var(--text-muted);
+            margin: 0 0.75rem;
+        }
+
+        footer a:hover {
+            color: var(--text);
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .docs-hero {
+                padding: 6rem 1rem 2rem;
+            }
+
+            .docs-hero h1 {
+                font-size: 1.75rem;
+            }
+
+            main {
+                padding: 2rem 1rem;
+            }
+
+            .quick-nav-links {
+                flex-direction: column;
+            }
+
+            pre {
+                font-size: 0.75rem;
+                padding: 1rem;
+            }
+
+            table {
+                font-size: 0.8rem;
+            }
+
+            th, td {
+                padding: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="images/logo-icon.png" alt="TalkAlly" class="logo-icon">
+                <span>TalkAlly</span>
+            </a>
+            <a href="index.html" class="back-link">← Back to Home</a>
+        </div>
+    </nav>
+
+    <section class="docs-hero">
+        <h1>Developer Documentation</h1>
+        <p>Integrate TalkAlly as a voice/text frontend for your backend system in under an hour</p>
+    </section>
+
+    <main>
+        <div class="quick-nav">
+            <h3>Quick Navigation</h3>
+            <div class="quick-nav-links">
+                <a href="#overview">Overview</a>
+                <a href="#architecture">Architecture</a>
+                <a href="#api-contract">API Contract</a>
+                <a href="#config-endpoint">Config Endpoint</a>
+                <a href="#functions">Function Endpoints</a>
+                <a href="#examples">Examples</a>
+                <a href="#platforms">Compatible Platforms</a>
+                <a href="#integrations">Service Integrations</a>
+            </div>
+        </div>
+
+        <!-- Overview -->
+        <section id="overview" class="docs-section">
+            <h2>Overview</h2>
+            <p>TalkAlly is a <strong>universal voice and text frontend</strong> that connects to any backend system via a simple JSON-based API. Your backend provides configuration and function endpoints — TalkAlly handles voice recognition, text-to-speech, and the mobile interface.</p>
+            
+            <div class="info-box success">
+                <strong>Key Benefit:</strong> Add a voice interface to your existing system without building a mobile app. TalkAlly users simply create a connection profile pointing to your backend URL.
+            </div>
+
+            <h3>What TalkAlly Provides</h3>
+            <table>
+                <tr>
+                    <th>Feature</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>Voice Interface</td>
+                    <td>Real-time speech-to-text and text-to-speech via OpenAI Realtime API</td>
+                </tr>
+                <tr>
+                    <td>Text Interface</td>
+                    <td>Chat-style text input with file attachments</td>
+                </tr>
+                <tr>
+                    <td>Function Calling</td>
+                    <td>AI-driven execution of your backend functions via webhooks</td>
+                </tr>
+                <tr>
+                    <td>Multi-Profile</td>
+                    <td>Users can connect to multiple backends (yours + others)</td>
+                </tr>
+                <tr>
+                    <td>Local Functions</td>
+                    <td>Optional app-based functions (notes, contacts, navigation)</td>
+                </tr>
+            </table>
+
+            <h3>What You Provide</h3>
+            <table>
+                <tr>
+                    <th>Component</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>Config Endpoint</td>
+                    <td>HTTP GET returning JSON with system prompt and function definitions</td>
+                </tr>
+                <tr>
+                    <td>Function Endpoints</td>
+                    <td>HTTP POST webhooks that execute actions and return results</td>
+                </tr>
+                <tr>
+                    <td>OpenAI API Key</td>
+                    <td>Your key (billed to you) or let users provide their own</td>
+                </tr>
+            </table>
+        </section>
+
+        <!-- Architecture -->
+        <section id="architecture" class="docs-section">
+            <h2>Architecture</h2>
+            
+            <div class="architecture-box">┌─────────────────────────────────────────────────────────────────┐
+│                        TalkAlly App                             │
+│                    (Voice + Text Frontend)                      │
+└─────────────────────────────┬───────────────────────────────────┘
+                              │
+                    1. GET /config
+                              │
+                              ▼
+┌─────────────────────────────────────────────────────────────────┐
+│                     YOUR BACKEND                                │
+│            (n8n, LangFlow, Flask, Lambda, etc.)                 │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│   Config Endpoint                                               │
+│   GET /webhook/config                                           │
+│                                                                 │
+│   Returns: {                                                    │
+│     "system_prompt": "You are...",                              │
+│     "functions": [...],                                         │
+│     "openai_api_key": "sk-..."                                  │
+│   }                                                             │
+│                                                                 │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│   Function Endpoints (called when AI decides)                   │
+│   POST /webhook/weather                                         │
+│   POST /webhook/send_email                                      │
+│   POST /webhook/search_database                                 │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘</div>
+
+            <h3>Request Flow</h3>
+            <ol>
+                <li><strong>Connect:</strong> User creates a connection profile in TalkAlly with your config URL</li>
+                <li><strong>Load Config:</strong> TalkAlly fetches your config endpoint (GET request)</li>
+                <li><strong>Start Session:</strong> TalkAlly connects to OpenAI with your system prompt and function definitions</li>
+                <li><strong>User Speaks/Types:</strong> Input is processed by OpenAI's AI model</li>
+                <li><strong>Function Call:</strong> When AI decides to call a function, TalkAlly POSTs to your webhook</li>
+                <li><strong>Response:</strong> Your webhook returns data, AI formulates response, TalkAlly speaks/displays it</li>
+            </ol>
+        </section>
+
+        <!-- API Contract -->
+        <section id="api-contract" class="docs-section">
+            <h2>API Contract</h2>
+            <p>TalkAlly expects your backend to implement a simple HTTP-based protocol:</p>
+
+            <table>
+                <tr>
+                    <th>Endpoint</th>
+                    <th>Method</th>
+                    <th>Purpose</th>
+                </tr>
+                <tr>
+                    <td><code class="inline-code">/config</code></td>
+                    <td><span class="badge badge-get">GET</span></td>
+                    <td>Returns JSON configuration (system prompt, functions, settings)</td>
+                </tr>
+                <tr>
+                    <td><code class="inline-code">/function-name</code></td>
+                    <td><span class="badge badge-post">POST</span></td>
+                    <td>Executes a function and returns result</td>
+                </tr>
+            </table>
+
+            <div class="info-box">
+                <strong>Protocol:</strong> Standard HTTP/HTTPS with JSON request/response bodies. Any platform that can serve HTTP endpoints can integrate with TalkAlly.
+            </div>
+        </section>
+
+        <!-- Config Endpoint -->
+        <section id="config-endpoint" class="docs-section">
+            <h2>Config Endpoint</h2>
+            <p>The config endpoint is the core of TalkAlly integration. It tells the app how to behave and what functions are available.</p>
+
+            <h3>Request</h3>
+            <pre><code>GET https://your-backend.com/webhook/config?tenant=sales&passkey=secret123</code></pre>
+
+            <h3>Query Parameters (Optional)</h3>
+            <table>
+                <tr>
+                    <th>Parameter</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td><code class="inline-code">tenant</code></td>
+                    <td>Tenant/profile identifier for multi-tenant setups</td>
+                </tr>
+                <tr>
+                    <td><code class="inline-code">passkey</code></td>
+                    <td>Optional authentication token</td>
+                </tr>
+                <tr>
+                    <td><code class="inline-code">custom_greeting</code></td>
+                    <td>Override default greeting message</td>
+                </tr>
+                <tr>
+                    <td><code class="inline-code">display_name</code></td>
+                    <td>User's display name for personalization</td>
+                </tr>
+            </table>
+
+            <h3>Response Schema</h3>
+            <pre><code>{
+  "system_prompt": "You are a helpful assistant for Acme Corp...",
+  "greeting": "Hello! How can I help you today?",
+  "functions": [
+    {
+      "name": "function_name",
+      "description": "What this function does",
+      "webhook_url": "https://your-backend.com/webhook/function_name",
+      "http_method": "POST",
+      "acknowledgment": "Processing your request...",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "param1": {
+            "type": "string",
+            "description": "Description of param1"
+          }
+        },
+        "required": ["param1"]
+      }
+    }
+  ],
+  "openai_api_key": "sk-...",
+  "voice": "alloy",
+  "voice_speed": 1.0,
+  "enable_local_functions": true
+}</code></pre>
+
+            <h3>Field Reference</h3>
+            <table>
+                <tr>
+                    <th>Field</th>
+                    <th>Type</th>
+                    <th>Required</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td><code class="inline-code">system_prompt</code></td>
+                    <td>string</td>
+                    <td><span class="badge badge-required">Required</span></td>
+                    <td>Instructions for the AI assistant's behavior</td>
+                </tr>
+                <tr>
+                    <td><code class="inline-code">openai_api_key</code></td>
+                    <td>string</td>
+                    <td><span class="badge badge-required">Required</span></td>
+                    <td>OpenAI API key for voice/text processing</td>
+                </tr>
+                <tr>
+                    <td><code class="inline-code">greeting</code></td>
+                    <td>string</td>
+                    <td><span class="badge badge-optional">Optional</span></td>
+                    <td>Initial greeting spoken when session starts</td>
+                </tr>
+                <tr>
+                    <td><code class="inline-code">functions</code></td>
+                    <td>array</td>
+                    <td><span class="badge badge-optional">Optional</span></td>
+                    <td>List of callable functions</td>
+                </tr>
+                <tr>
+                    <td><code class="inline-code">voice</code></td>
+                    <td>string</td>
+                    <td><span class="badge badge-optional">Optional</span></td>
+                    <td>OpenAI voice: alloy, ash, ballad, coral, echo, sage, shimmer, verse</td>
+                </tr>
+                <tr>
+                    <td><code class="inline-code">voice_speed</code></td>
+                    <td>number</td>
+                    <td><span class="badge badge-optional">Optional</span></td>
+                    <td>Playback speed (0.5 to 2.0, default: 1.0)</td>
+                </tr>
+                <tr>
+                    <td><code class="inline-code">enable_local_functions</code></td>
+                    <td>boolean</td>
+                    <td><span class="badge badge-optional">Optional</span></td>
+                    <td>Enable app-based functions (notes, contacts, navigation)</td>
+                </tr>
+            </table>
+
+            <h3>Function Schema</h3>
+            <table>
+                <tr>
+                    <th>Field</th>
+                    <th>Type</th>
+                    <th>Required</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td><code class="inline-code">name</code></td>
+                    <td>string</td>
+                    <td><span class="badge badge-required">Required</span></td>
+                    <td>Unique function identifier (snake_case)</td>
+                </tr>
+                <tr>
+                    <td><code class="inline-code">description</code></td>
+                    <td>string</td>
+                    <td><span class="badge badge-required">Required</span></td>
+                    <td>What the function does (AI uses this to decide when to call it)</td>
+                </tr>
+                <tr>
+                    <td><code class="inline-code">webhook_url</code></td>
+                    <td>string</td>
+                    <td><span class="badge badge-required">Required</span></td>
+                    <td>Full URL to POST when function is called</td>
+                </tr>
+                <tr>
+                    <td><code class="inline-code">acknowledgment</code></td>
+                    <td>string</td>
+                    <td><span class="badge badge-optional">Optional</span></td>
+                    <td>Message spoken while function executes</td>
+                </tr>
+                <tr>
+                    <td><code class="inline-code">parameters</code></td>
+                    <td>object</td>
+                    <td><span class="badge badge-optional">Optional</span></td>
+                    <td>JSON Schema defining function parameters</td>
+                </tr>
+            </table>
+        </section>
+
+        <!-- Function Endpoints -->
+        <section id="functions" class="docs-section">
+            <h2>Function Endpoints</h2>
+            <p>When the AI decides to call a function, TalkAlly sends a POST request to the function's <code class="inline-code">webhook_url</code>.</p>
+
+            <h3>Request</h3>
+            <pre><code>POST https://your-backend.com/webhook/get_weather
+Content-Type: application/json
+
+{
+  "location": "Sydney"
+}</code></pre>
+
+            <h3>Response</h3>
+            <p>Return JSON with the function result. The AI will use this to formulate a response to the user.</p>
+            <pre><code>{
+  "temperature": 25,
+  "conditions": "Sunny",
+  "humidity": 65,
+  "wind": "15 km/h NE"
+}</code></pre>
+
+            <div class="info-box warning">
+                <strong>Tip:</strong> Keep responses concise. The AI will speak the result, so avoid returning large data structures. Return human-readable summaries when possible.
+            </div>
+
+            <h3>Error Handling</h3>
+            <pre><code>{
+  "error": "Location not found",
+  "message": "Could not find weather data for the specified location."
+}</code></pre>
+        </section>
+
+        <!-- Examples -->
+        <section id="examples" class="docs-section">
+            <h2>Integration Examples</h2>
+
+            <h3>Minimal Config (Voice Only)</h3>
+            <p>The simplest possible integration — just voice chat with no functions:</p>
+            <pre><code>{
+  "system_prompt": "You are a helpful assistant for Acme Corporation.",
+  "greeting": "Hello! Welcome to Acme support.",
+  "openai_api_key": "sk-your-api-key-here"
+}</code></pre>
+
+            <h3>With Custom Functions</h3>
+            <pre><code>{
+  "system_prompt": "You are a sales assistant. Help customers find products.",
+  "greeting": "Hi! I can help you find products.",
+  "openai_api_key": "sk-your-api-key-here",
+  "voice": "nova",
+  "voice_speed": 1.1,
+  "functions": [
+    {
+      "name": "search_products",
+      "description": "Search for products by name or category",
+      "webhook_url": "https://api.example.com/search",
+      "acknowledgment": "Searching our catalog...",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "Product name or category"
+          }
+        },
+        "required": ["query"]
+      }
+    }
+  ]
+}</code></pre>
+
+            <h3>Multi-Tenant Example</h3>
+            <pre><code>// Your backend pseudo-code
+GET /webhook/config?tenant=XXX
+
+if (tenant === "sales") {
+  return {
+    system_prompt: "You are a sales assistant...",
+    functions: [/* sales functions */],
+    openai_api_key: "sk-sales-key"
+  }
+}
+
+if (tenant === "support") {
+  return {
+    system_prompt: "You are a support agent...",
+    functions: [/* support functions */],
+    openai_api_key: "sk-support-key"
+  }
+}</code></pre>
+
+            <h3>n8n Code Node</h3>
+            <pre><code>// n8n Code Node
+const tenant = $input.query.tenant || 'default';
+const displayName = $input.query.display_name || 'User';
+
+return {
+  json: {
+    system_prompt: `You are a helpful assistant for ${displayName}.`,
+    greeting: `Hello ${displayName}! How can I help?`,
+    openai_api_key: "sk-your-key",
+    functions: [
+      {
+        name: "get_weather",
+        description: "Get weather for a location",
+        webhook_url: "https://your-n8n.com/webhook/weather",
+        parameters: {
+          type: "object",
+          properties: {
+            location: { type: "string", description: "City name" }
+          },
+          required: ["location"]
+        }
+      }
+    ]
+  }
+};</code></pre>
+
+            <h3>Python Flask</h3>
+            <pre><code>from flask import Flask, request, jsonify
+
+app = Flask(__name__)
+
+@app.route('/config', methods=['GET'])
+def get_config():
+    tenant = request.args.get('tenant', 'default')
+    
+    return jsonify({
+        "system_prompt": f"You are assistant for {tenant} team.",
+        "greeting": "Hello! How can I help?",
+        "openai_api_key": "sk-your-key",
+        "functions": [
+            {
+                "name": "get_data",
+                "description": "Retrieve data from database",
+                "webhook_url": "https://your-server.com/api/data",
+                "parameters": {
+                    "type": "object",
+                    "properties": {
+                        "query": {"type": "string"}
+                    }
+                }
+            }
+        ]
+    })
+
+@app.route('/api/data', methods=['POST'])
+def get_data():
+    query = request.json.get('query', '')
+    # Your logic here
+    return jsonify({"result": f"Data for: {query}"})</code></pre>
+        </section>
+
+        <!-- Compatible Platforms -->
+        <section id="platforms" class="docs-section">
+            <h2>Compatible Platforms</h2>
+            <p>TalkAlly works with any platform that can serve HTTP endpoints returning JSON:</p>
+
+            <h3>Workflow Automation</h3>
+            <div class="platform-grid">
+                <div class="platform-item">
+                    <h4>n8n</h4>
+                    <p>Open source workflow automation</p>
+                </div>
+                <div class="platform-item">
+                    <h4>LangFlow</h4>
+                    <p>Visual LLM workflow builder</p>
+                </div>
+                <div class="platform-item">
+                    <h4>Flowise</h4>
+                    <p>LangChain visual builder</p>
+                </div>
+                <div class="platform-item">
+                    <h4>Node-RED</h4>
+                    <p>Flow-based programming</p>
+                </div>
+                <div class="platform-item">
+                    <h4>Activepieces</h4>
+                    <p>Open source automation</p>
+                </div>
+                <div class="platform-item">
+                    <h4>Dify</h4>
+                    <p>AI application platform</p>
+                </div>
+            </div>
+
+            <h3>Low-Code Platforms</h3>
+            <div class="platform-grid">
+                <div class="platform-item">
+                    <h4>Make</h4>
+                    <p>Visual automation platform</p>
+                </div>
+                <div class="platform-item">
+                    <h4>Zapier</h4>
+                    <p>Webhooks by Zapier</p>
+                </div>
+                <div class="platform-item">
+                    <h4>Power Automate</h4>
+                    <p>Microsoft HTTP triggers</p>
+                </div>
+                <div class="platform-item">
+                    <h4>Pipedream</h4>
+                    <p>Developer workflows</p>
+                </div>
+            </div>
+
+            <h3>Serverless & Custom</h3>
+            <div class="platform-grid">
+                <div class="platform-item">
+                    <h4>AWS Lambda</h4>
+                    <p>+ API Gateway</p>
+                </div>
+                <div class="platform-item">
+                    <h4>Azure Functions</h4>
+                    <p>Microsoft serverless</p>
+                </div>
+                <div class="platform-item">
+                    <h4>Google Cloud Functions</h4>
+                    <p>GCP serverless</p>
+                </div>
+                <div class="platform-item">
+                    <h4>Flask / FastAPI</h4>
+                    <p>Python frameworks</p>
+                </div>
+                <div class="platform-item">
+                    <h4>Express / Node.js</h4>
+                    <p>JavaScript backend</p>
+                </div>
+                <div class="platform-item">
+                    <h4>Cloudflare Workers</h4>
+                    <p>Edge computing</p>
+                </div>
+            </div>
+
+            <div class="info-box success">
+                <strong>Integration Time:</strong> Most platforms require only 30-60 minutes to set up a working TalkAlly integration.
+            </div>
+        </section>
+
+        <!-- Service Integrations -->
+        <section id="integrations" class="docs-section">
+            <h2>Service Integrations</h2>
+            <p>TalkAlly connects to popular services, giving you hands-free access to email, calendar, contacts, and files. Each integration has its own setup guide.</p>
+
+            <div class="integration-cards">
+                <a href="docs-google.html" class="integration-card">
+                    <div class="card-header">
+                        <div class="card-icon google">
+                            <svg width="24" height="24" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+                        </div>
+                        <h4>Google Workspace</h4>
+                    </div>
+                    <p>Gmail, Calendar, Contacts, and Drive. Multi-account support with automatic token refresh.</p>
+                    <div class="card-arrow">View Guide →</div>
+                </a>
+
+                <div class="integration-card" style="cursor: default; opacity: 0.7;">
+                    <div class="card-header">
+                        <div class="card-icon microsoft">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="#00a4ef"><path d="M11.4 24H0V12.6h11.4V24zM24 24H12.6V12.6H24V24zM11.4 11.4H0V0h11.4v11.4zm12.6 0H12.6V0H24v11.4z"/></svg>
+                        </div>
+                        <h4>Microsoft 365 <span class="coming-soon">Coming Soon</span></h4>
+                    </div>
+                    <p>Outlook email, Calendar, and OneDrive integration for personal and work accounts.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Getting Started -->
+        <section class="docs-section">
+            <h2>Getting Started</h2>
+            <ol>
+                <li><strong>Create a config endpoint</strong> on your platform that returns the JSON schema above</li>
+                <li><strong>Test the endpoint</strong> by visiting it in a browser — you should see JSON</li>
+                <li><strong>Install TalkAlly</strong> from Google Play Store</li>
+                <li><strong>Add a Connection Profile</strong> → Choose "Business" mode</li>
+                <li><strong>Enter your config URL</strong> as the "Orchestrator URL"</li>
+                <li><strong>Test the connection</strong> — TalkAlly will fetch your config</li>
+                <li><strong>Connect and talk!</strong></li>
+            </ol>
+
+            <div class="info-box">
+                <strong>Need Help?</strong> Contact us at <a href="mailto:support@talkally.ai">support@talkally.ai</a> for integration support.
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div>
+            <a href="index.html">Home</a>
+            <a href="docs.html">Docs</a>
+            <a href="privacy.html">Privacy</a>
+            <a href="terms.html">Terms</a>
+            <a href="support.html">Support</a>
+        </div>
+        <p style="margin-top: 1rem;">© 2025 TalkAlly. All rights reserved.</p>
+    </footer>
+</body>
+</html>
